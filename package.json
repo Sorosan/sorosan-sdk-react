@@ -1,7 +1,7 @@
 {
   "name": "@sorosan-sdk/react",
   "license": "MIT",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "author": "Sorosan",
   "homepage": "https://github.com/sorosan",
   "repository": {
@@ -15,7 +15,12 @@
     "access": "public"
   },
   "keywords": [
-    "soroban", "web3", "stellar", "sdk", "typescript", "react"
+    "soroban",
+    "web3",
+    "stellar",
+    "sdk",
+    "typescript",
+    "react"
   ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -34,7 +39,7 @@
     "vitest": "^0.34.5"
   },
   "dependencies": {
-    "@sorosan-sdk/core": "^0.0.6",
+    "@sorosan-sdk/core": "^0.0.7",
     "@types/react": "^18.2.22",
     "react": "^18.2.0"
   }

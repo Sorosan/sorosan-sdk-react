@@ -1,7 +1,21 @@
 "use client"
 
-import React, { createContext, useState } from "react";
-import { DEFAULT_NETWORK, SorosanSDK } from "@sorosan-sdk/core";
+import React, { createContext, useEffect, useState } from "react";
+import {
+    DEFAULT_NETWORK,
+    TESTNET_DETAILS,
+    MAINNET_DETAILS,
+    SorosanSDK
+} from "@sorosan-sdk/core";
+
+/**
+ * Represents the type of network, which can be one of the following values:
+ * - "futurenet"
+ * - "mainnet"
+ * - "testnet"
+ * - "custom"
+ */
+export type networkType = "futurenet" | "mainnet" | "testnet" | "custom";
 
 /**
  * A provider component that wraps your application with the Soroban SDK.
@@ -10,9 +24,43 @@ import { DEFAULT_NETWORK, SorosanSDK } from "@sorosan-sdk/core";
  * @param {SorosanProviderProps} props - Props for the SorosanProvider component.
  * @returns {JSX.Element} The JSX element that represents the SorosanProvider component.
  */
-export const SorosanProvider = ({ children }: SorosanProviderProps) => {
-    const [sdk, _] = useState<SorosanSDK>(new SorosanSDK(DEFAULT_NETWORK));
-    const [appName, setAppName] = useState<string>("Sorosan Dapp");
+export const SorosanProvider = ({ children, network, name }: SorosanProviderProps) => {
+    const [sdk, setSDK] = useState<SorosanSDK>(new SorosanSDK(DEFAULT_NETWORK));
+    const [selectedNetwork, setSelectedNetework] = useState<any>(DEFAULT_NETWORK);
+    const [appName, setAppName] = useState<string>(name || "");
+
+    useEffect(() => {
+        let networkToUse: networkType = "futurenet";
+        if (network) {
+            networkToUse = network;
+        }
+
+        // IMPORTANT: All the network will fail to FUTURENET as other not yet supported.
+        console.log("@sorosan-sdk/react: changing network to ", networkToUse);
+        switch (networkToUse) {
+            case "mainnet":
+                setSelectedNetework(MAINNET_DETAILS);
+                setSDK(new SorosanSDK(MAINNET_DETAILS));
+                // break;
+            case "testnet":
+                setSelectedNetework(TESTNET_DETAILS);
+                setSDK(new SorosanSDK(TESTNET_DETAILS));
+                setAppName("Sorosan Dapp");
+                // break;
+            case "custom":
+                setSelectedNetework(DEFAULT_NETWORK);
+                setSDK(new SorosanSDK(DEFAULT_NETWORK));
+                // break;
+            case "futurenet":
+                setSelectedNetework(DEFAULT_NETWORK);
+                setSDK(new SorosanSDK(DEFAULT_NETWORK));
+                break;
+            default:
+                setSelectedNetework(DEFAULT_NETWORK);
+                setSDK(new SorosanSDK(DEFAULT_NETWORK));
+                break;
+        }
+    }, [selectedNetwork]);
 
     return (
         <SorosanContext.Provider value={{ sdk, appName }}>
@@ -27,6 +75,8 @@ export const SorosanProvider = ({ children }: SorosanProviderProps) => {
  */
 interface SorosanProviderProps extends
     React.HTMLAttributes<HTMLDivElement> {
+    network?: networkType;
+    name?: string;
 }
 
 /**
