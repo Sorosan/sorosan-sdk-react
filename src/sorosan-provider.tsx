@@ -5,6 +5,7 @@ import {
     DEFAULT_NETWORK,
     TESTNET_DETAILS,
     MAINNET_DETAILS,
+    FUTURENET_DETAILS,
     SorosanSDK
 } from "@sorosan-sdk/core";
 
@@ -45,19 +46,18 @@ export const SorosanProvider = ({ children, network, name }: SorosanProviderProp
             case "testnet":
                 setSelectedNetework(TESTNET_DETAILS);
                 setSDK(new SorosanSDK(TESTNET_DETAILS));
-                setAppName("Sorosan Dapp");
                 // break;
             case "custom":
                 setSelectedNetework(DEFAULT_NETWORK);
                 setSDK(new SorosanSDK(DEFAULT_NETWORK));
                 // break;
             case "futurenet":
-                setSelectedNetework(DEFAULT_NETWORK);
-                setSDK(new SorosanSDK(DEFAULT_NETWORK));
+                setSelectedNetework(FUTURENET_DETAILS);
+                setSDK(new SorosanSDK(FUTURENET_DETAILS));
                 break;
             default:
-                setSelectedNetework(DEFAULT_NETWORK);
-                setSDK(new SorosanSDK(DEFAULT_NETWORK));
+                setSelectedNetework(FUTURENET_DETAILS);
+                setSDK(new SorosanSDK(FUTURENET_DETAILS));
                 break;
         }
     }, [selectedNetwork]);
