@@ -31,30 +31,19 @@ export const SorosanProvider = ({ children, network, name }: SorosanProviderProp
     const [appName, setAppName] = useState<string>(name || "");
 
     useEffect(() => {
-        let networkToUse: networkType = "futurenet";
-        if (network) {
-            networkToUse = network;
-        }
-
-        // IMPORTANT: All the network will fail to FUTURENET as other not yet supported.
-        console.log("@sorosan-sdk/react: changing network to ", networkToUse);
-        switch (networkToUse) {
-            case "mainnet":
-                setSelectedNetework(MAINNET_DETAILS);
-                setSDK(new SorosanSDK(MAINNET_DETAILS));
-                // break;
+        // IMPORTANT: Currently only the futurenet and testnet is supported.
+        console.log("@sorosan-sdk/react: changing network to ", network);
+        switch (network) {
             case "testnet":
                 setSelectedNetework(TESTNET_DETAILS);
                 setSDK(new SorosanSDK(TESTNET_DETAILS));
-                // break;
-            case "custom":
-                setSelectedNetework(DEFAULT_NETWORK);
-                setSDK(new SorosanSDK(DEFAULT_NETWORK));
-                // break;
+                break;
             case "futurenet":
                 setSelectedNetework(FUTURENET_DETAILS);
                 setSDK(new SorosanSDK(FUTURENET_DETAILS));
                 break;
+            case "custom":
+            case "mainnet":
             default:
                 setSelectedNetework(FUTURENET_DETAILS);
                 setSDK(new SorosanSDK(FUTURENET_DETAILS));

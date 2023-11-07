@@ -22,7 +22,8 @@ export default function Component() {
     const { sdk } = useSorosan();
 
     return (
-        <SorosanProvider network="futurenet">
+        // Currently only support futurenet and testnet
+        <SorosanProvider network="futurenet | tesnet">
             {children}
         </SorosanProvider>
     )
