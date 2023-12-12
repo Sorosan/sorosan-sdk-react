@@ -12,7 +12,6 @@ import {
  * Represents the type of network, which can be one of the following values:
  * - "mainnet"
  * - "testnet"
- * - "custom"
  */
 export type networkType = "mainnet" | "testnet";
 
